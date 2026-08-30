@@ -59,6 +59,26 @@ VITE_API_PROXY_TARGET=http://localhost:4010
 
 Подробности — в [frontend/README.md](frontend/README.md).
 
+## Соглашение о коммитах
+
+Все коммиты следуют [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Формат проверяется автоматически при коммите через `commitlint` + `husky`.
+
+```bash
+npm install              # установка commitlint + husky в корне
+npx husky install        # инициализация git hooks для проверки коммитов
+```
+
+**Типы коммитов**: `feat`, `fix`, `spec` (TypeSpec), `docs`, `test`, `refactor`, `perf`, `ci`, `build`, `chore`.
+
+**Примеры**:
+```bash
+git commit -m "feat(backend): add booking conflict validation"
+git commit -m "spec(models): add archived field to EventType"
+git commit -m "fix(frontend): correct calendar grid overflow"
+```
+
+Полное руководство: [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Интеграционные тесты
 
 Playwright-тесты в [e2e/](e2e) проверяют frontend и backend вместе через реальный браузер:

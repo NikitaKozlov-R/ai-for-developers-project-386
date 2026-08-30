@@ -41,6 +41,9 @@
 ## Команды
 
 ```bash
+npm install                           # установка commitlint + husky в корне
+npx husky install                     # инициализация git hooks для проверки коммитов
+
 cd specs && npm run build             # .tsp → openapi/openapi.yaml
 cd specs && npm run format            # форматирование .tsp
 npx @redocly/cli lint simple-cal-com  # линт OpenAPI, из корня репозитория
@@ -53,12 +56,30 @@ cd frontend && npm run dev            # dev-сервер на :5173
 cd frontend && npm run mock           # Prism-мок по контракту на :4010
 ```
 
-Корневого `package.json` нет намеренно: у каждого пакета свой манифест.
+Корневой `package.json` хранит зависимости для git-хуков (`commitlint`, `husky`) и их конфигурацию.
+Остальные пакеты имеют собственные манифесты.
 
 Фронтенд ходит в относительный `/api`, прокси Vite разворачивает префикс в
 `VITE_API_PROXY_TARGET` — по умолчанию в бэкенд, для работы по моку укажите Prism.
 
 ## Соглашения
+
+### Коммиты
+
+Все коммиты следуют [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), проверяются автоматически при коммите.
+
+**Типы коммитов**: `feat`, `fix`, `spec` (TypeSpec), `docs`, `test`, `refactor`, `perf`, `ci`, `build`, `chore`.
+
+**Примеры**:
+```bash
+git commit -m "feat(backend): add booking conflict validation"
+git commit -m "spec(models): add archived field to EventType"
+git commit -m "fix(frontend): correct calendar grid overflow"
+```
+
+Полная инструкция: [CONTRIBUTING.md](CONTRIBUTING.md), skill: [.github/skills/commit-conventions/SKILL.md](.github/skills/commit-conventions/SKILL.md).
+
+### Данные и форматы
 
 - Время — UTC (`utcDateTime`), календарные дни — `plainDate`. Часовой пояс не хранится.
 - Идентификаторы — uuid, генерирует сервер.
