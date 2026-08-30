@@ -27,6 +27,7 @@ import { Link } from "@/lib/router";
 import { useApi } from "@/lib/useApi";
 import { useMutation } from "@/lib/useMutation";
 import { formatDuration } from "@/lib/utc";
+import { cn } from "@/lib/utils";
 
 export function AdminEventTypesPage() {
   const eventTypes = useApi((signal) => adminListEventTypes(signal), []);
@@ -67,7 +68,7 @@ export function AdminEventTypesPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold tracking-tight">Типы событий</h1>
-        <Link to="/admin/event-types/new" className={buttonVariants()}>
+        <Link to="/admin/event-types/new" className={cn(buttonVariants())}>
           <PlusIcon aria-hidden />
           Создать
         </Link>
@@ -115,10 +116,9 @@ export function AdminEventTypesPage() {
                     <div className="flex justify-end gap-1">
                       <Link
                         to={`/admin/event-types/${encodeURIComponent(eventType.id)}`}
-                        className={buttonVariants({
-                          variant: "ghost",
-                          size: "sm",
-                        })}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "sm" }),
+                        )}
                         aria-label={`Изменить ${eventType.title}`}
                       >
                         <PencilIcon aria-hidden />
@@ -146,7 +146,7 @@ export function AdminEventTypesPage() {
           title="Типов событий пока нет"
           description="Создайте первый тип события, чтобы гости могли записаться."
           action={
-            <Link to="/admin/event-types/new" className={buttonVariants()}>
+            <Link to="/admin/event-types/new" className={cn(buttonVariants())}>
               Создать тип события
             </Link>
           }

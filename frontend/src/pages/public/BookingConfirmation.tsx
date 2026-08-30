@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/lib/router";
 import { formatDateTime, formatDuration, formatTime } from "@/lib/utc";
+import { cn } from "@/lib/utils";
 
 export function BookingConfirmation({ booking }: { booking: Booking }) {
   return (
@@ -42,7 +43,7 @@ export function BookingConfirmation({ booking }: { booking: Booking }) {
           страница подтверждения не открывается повторно.
         </p>
 
-        <Link to="/" className={buttonVariants({ variant: "outline" })}>
+        <Link to="/" className={cn(buttonVariants({ variant: "outline" }))}>
           К списку типов встреч
         </Link>
       </CardContent>

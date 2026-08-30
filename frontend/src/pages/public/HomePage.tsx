@@ -56,9 +56,9 @@ export function HomePage() {
               <li key={eventType.id}>
                 <Link
                   to={`/event-types/${encodeURIComponent(eventType.id)}`}
-                  className="block h-full rounded-xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                  className="block h-full focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
-                  <Card className="hover:border-foreground/20 h-full transition-colors">
+                  <Card className="hover:bg-muted h-full transition-colors">
                     <CardHeader>
                       <CardTitle className="flex items-start justify-between gap-3">
                         <span>{eventType.title}</span>

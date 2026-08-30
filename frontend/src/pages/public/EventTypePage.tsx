@@ -11,6 +11,7 @@ import { Link } from "@/lib/router";
 import { useQueryParam, useRouter } from "@/lib/routing";
 import { useApi } from "@/lib/useApi";
 import { useMutation } from "@/lib/useMutation";
+import { cn } from "@/lib/utils";
 import {
   formatDate,
   formatDuration,
@@ -221,7 +222,7 @@ function NotFoundNotice() {
           Возможно, владелец календаря его удалил.
         </AlertDescription>
       </Alert>
-      <Link to="/" className={buttonVariants({ variant: "outline" })}>
+      <Link to="/" className={cn(buttonVariants({ variant: "outline" }))}>
         К списку типов встреч
       </Link>
     </div>

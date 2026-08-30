@@ -30,6 +30,7 @@ import { Link } from "@/lib/router";
 import { useRouter } from "@/lib/routing";
 import { useApi } from "@/lib/useApi";
 import { fieldError, unmappedDetails, useMutation } from "@/lib/useMutation";
+import { cn } from "@/lib/utils";
 import { formatDuration } from "@/lib/utc";
 
 export function AdminEventTypeFormPage({
@@ -289,7 +290,7 @@ function EventTypeForm({
           </Button>
           <Link
             to="/admin/event-types"
-            className={buttonVariants({ variant: "ghost" })}
+            className={cn(buttonVariants({ variant: "ghost" }))}
           >
             Отмена
           </Link>
@@ -341,7 +342,7 @@ function NotFoundNotice() {
       </Alert>
       <Link
         to="/admin/event-types"
-        className={buttonVariants({ variant: "outline" })}
+        className={cn(buttonVariants({ variant: "outline" }))}
       >
         Все типы событий
       </Link>
