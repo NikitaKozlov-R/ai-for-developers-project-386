@@ -4,7 +4,7 @@
 
 # Simple Cal.com
 
-[🚀 Открыть проект](https://ai-for-developers-project-386-2utu.onrender.com/)
+[🚀 Открыть проект](https://ai-for-developers-project-386-6n6k.onrender.com/)
 
 Упрощённый cal.com. Владелец календаря заводит типы событий и смотрит предстоящие
 встречи, гость без регистрации выбирает тип события и бронирует свободный слот.
