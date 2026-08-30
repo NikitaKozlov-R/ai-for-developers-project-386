@@ -28,6 +28,16 @@
 
 Полная процедура: [.github/skills/update-api-spec/SKILL.md](.github/skills/update-api-spec/SKILL.md).
 
+## Бэкенд
+
+`backend/` — HTTP-сервер на `node:http` без фреймворков. Node исполняет `.ts` напрямую,
+стирая типы: сборки и артефактов нет, `typescript` нужен только для `npm run typecheck`.
+
+Хранилище — в памяти процесса (`src/domain/store.ts`), базы данных нет. Рестарт возвращает
+стартовые данные. Рабочие часы и шаг сетки задаются в `src/config.ts`: контракт их не описывает.
+
+Бизнес-правила живут в `src/domain/`, обработчики в `src/routes/` только собирают ответ.
+
 ## Команды
 
 ```bash
@@ -35,12 +45,18 @@ cd specs && npm run build             # .tsp → openapi/openapi.yaml
 cd specs && npm run format            # форматирование .tsp
 npx @redocly/cli lint simple-cal-com  # линт OpenAPI, из корня репозитория
 
+cd backend && npm run dev             # API на :3000 с перезапуском по правкам
+cd backend && npm run verify          # типы — перед коммитом
+
 cd frontend && npm run verify         # линт, типы и сборка — перед коммитом
 cd frontend && npm run dev            # dev-сервер на :5173
 cd frontend && npm run mock           # Prism-мок по контракту на :4010
 ```
 
 Корневого `package.json` нет намеренно: у каждого пакета свой манифест.
+
+Фронтенд ходит в относительный `/api`, прокси Vite разворачивает префикс в
+`VITE_API_PROXY_TARGET` — по умолчанию в бэкенд, для работы по моку укажите Prism.
 
 ## Соглашения
 
