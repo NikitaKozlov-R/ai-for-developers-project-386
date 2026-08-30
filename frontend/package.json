@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
+    "verify": "npm run lint && npm run build",
     "preview": "vite preview",
     "mock": "prism mock ../openapi/openapi.yaml --port 4010"
   },

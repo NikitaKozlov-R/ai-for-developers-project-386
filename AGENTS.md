@@ -34,6 +34,10 @@
 cd specs && npm run build             # .tsp → openapi/openapi.yaml
 cd specs && npm run format            # форматирование .tsp
 npx @redocly/cli lint simple-cal-com  # линт OpenAPI, из корня репозитория
+
+cd frontend && npm run verify         # линт, типы и сборка — перед коммитом
+cd frontend && npm run dev            # dev-сервер на :5173
+cd frontend && npm run mock           # Prism-мок по контракту на :4010
 ```
 
 Корневого `package.json` нет намеренно: у каждого пакета свой манифест.
