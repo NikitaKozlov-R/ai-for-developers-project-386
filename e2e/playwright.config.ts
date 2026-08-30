@@ -25,7 +25,7 @@ export default defineConfig({
     {
       command: "npm run dev",
       cwd: "../backend",
-      url: "http://localhost:3000/owner",
+      url: "http://localhost:3000/api/owner",
       reuseExistingServer: !CI,
       timeout: 30_000,
       // Только для процесса, который поднимает сам Playwright — открывает POST /internal/reset.
