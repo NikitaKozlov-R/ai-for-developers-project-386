@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CalendarClockIcon } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Link } from "@/lib/router";
 import { useRouter } from "@/lib/routing";
@@ -19,7 +19,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <header className="bg-background/80 sticky top-0 z-10 border-b backdrop-blur">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <CalendarClockIcon className="size-5" aria-hidden />
+            <Calendar className="size-5" aria-hidden />
             Simple Cal.com
           </Link>
 
