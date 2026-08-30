@@ -1,9 +1,17 @@
+import { existsSync } from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
+import path from "node:path";
 
 import { PUBLIC_DIR } from "./config.ts";
 import { applyCors, sendApiError, sendJson } from "./lib/http.ts";
 import { ApiError, notFound } from "./lib/errors.ts";
 import { serveStatic } from "./lib/static.ts";
+
+// Собранного фронтенда нет локально (Dockerfile кладёт его в образ) — тогда единственный
+// источник запросов к бэкенду это прокси Vite, который срезает /api перед проксированием,
+// и прямые вызовы с префиксом (например e2e). Разбирать эти два пути одинаково безопасно,
+// т.к. коллизия со SPA-роутами (см. ветку ниже) возможна только когда бэкенд сам раздаёт статику.
+const SERVES_STATIC = existsSync(path.join(PUBLIC_DIR, "index.html"));
 
 export interface RequestContext {
   req: IncomingMessage;
@@ -46,24 +54,37 @@ export function createRequestListener(routes: readonly Route[]) {
     };
 
     try {
-      // Все API-эндпоинты живут под /api — остальное отдаётся как статика фронтенда.
-      if (segments[0] === "api") {
-        const matched = match(routes, method, segments.slice(1));
+      if (SERVES_STATIC) {
+        // Все API-эндпоинты живут под /api — остальное отдаётся как статика фронтенда.
+        if (segments[0] === "api") {
+          const matched = match(routes, method, segments.slice(1));
 
-        if (matched === null) {
-          throw notFound("Такого эндпоинта нет.");
+          if (matched === null) {
+            throw notFound("Такого эндпоинта нет.");
+          }
+
+          await matched.route.handler({ ...ctx, params: matched.params });
+          return;
         }
 
-        await matched.route.handler({ ...ctx, params: matched.params });
-        return;
+        if (method === "GET") {
+          await serveStatic(ctx, PUBLIC_DIR);
+          return;
+        }
+
+        throw notFound("Такого эндпоинта нет.");
       }
 
-      if (method === "GET") {
-        await serveStatic(ctx, PUBLIC_DIR);
-        return;
+      // Без статики отдавать нечего — сюда попадают только настоящие вызовы API,
+      // с префиксом /api (прямые вызовы) или без него (прокси Vite уже его срезал).
+      const apiSegments = segments[0] === "api" ? segments.slice(1) : segments;
+      const matched = match(routes, method, apiSegments);
+
+      if (matched === null) {
+        throw notFound("Такого эндпоинта нет.");
       }
 
-      throw notFound("Такого эндпоинта нет.");
+      await matched.route.handler({ ...ctx, params: matched.params });
     } catch (cause) {
       if (cause instanceof ApiError) {
         sendApiError(res, cause);
