@@ -54,6 +54,10 @@ cd backend && npm run verify          # типы — перед коммитом
 cd frontend && npm run verify         # линт, типы и сборка — перед коммитом
 cd frontend && npm run dev            # dev-сервер на :5173
 cd frontend && npm run mock           # Prism-мок по контракту на :4010
+
+docker build -t simple-cal-com .                          # образ: фронтенд + бэкенд одним процессом
+docker run -d -e PORT=8080 -p 8080:8080 --name simple-cal-com simple-cal-com
+docker stop simple-cal-com                                # остановить контейнер
 ```
 
 Корневой `package.json` хранит зависимости для git-хуков (`commitlint`, `husky`) и их конфигурацию.

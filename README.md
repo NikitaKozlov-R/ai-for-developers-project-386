@@ -59,6 +59,16 @@ VITE_API_PROXY_TARGET=http://localhost:4010
 
 Подробности — в [frontend/README.md](frontend/README.md).
 
+## Сборка для деплоя
+
+```bash
+docker build -t simple-cal-com .
+docker run -d -e PORT=8080 -p 8080:8080 --name simple-cal-com simple-cal-com
+docker stop simple-cal-com   # остановить контейнер
+```
+
+Образ собирает фронтенд и раздаёт его вместе с API одним процессом на порту из `PORT`.
+
 ## Соглашение о коммитах
 
 Все коммиты следуют [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Формат проверяется автоматически при коммите через `commitlint` + `husky`.
