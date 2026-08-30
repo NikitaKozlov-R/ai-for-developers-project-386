@@ -1,6 +1,11 @@
+import path from "node:path";
+
 // Настройки сервера. Рабочих часов и шага сетки нет в контракте — это решение бэкенда.
 
 export const PORT = readPort();
+
+/** Собранная статика фронтенда, кладётся сюда Dockerfile при сборке образа. */
+export const PUBLIC_DIR = path.join(import.meta.dirname, "../public");
 
 /** Откуда браузеру разрешено ходить напрямую, минуя прокси Vite. */
 export const CORS_ORIGIN = process.env.CORS_ORIGIN ?? "http://localhost:5173";

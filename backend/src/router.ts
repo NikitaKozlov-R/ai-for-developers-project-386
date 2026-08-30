@@ -1,7 +1,9 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
+import { PUBLIC_DIR } from "./config.ts";
 import { applyCors, sendApiError, sendJson } from "./lib/http.ts";
 import { ApiError, notFound } from "./lib/errors.ts";
+import { serveStatic } from "./lib/static.ts";
 
 export interface RequestContext {
   req: IncomingMessage;
@@ -35,20 +37,33 @@ export function createRequestListener(routes: readonly Route[]) {
 
     const url = new URL(req.url ?? "/", "http://localhost");
     const segments = splitPath(url.pathname);
+    const method = req.method ?? "GET";
+    const ctx: RequestContext = {
+      req,
+      res,
+      params: {},
+      query: url.searchParams,
+    };
 
     try {
-      const matched = match(routes, req.method ?? "GET", segments);
+      // Все API-эндпоинты живут под /api — остальное отдаётся как статика фронтенда.
+      if (segments[0] === "api") {
+        const matched = match(routes, method, segments.slice(1));
 
-      if (matched === null) {
-        throw notFound("Такого эндпоинта нет.");
+        if (matched === null) {
+          throw notFound("Такого эндпоинта нет.");
+        }
+
+        await matched.route.handler({ ...ctx, params: matched.params });
+        return;
       }
 
-      await matched.route.handler({
-        req,
-        res,
-        params: matched.params,
-        query: url.searchParams,
-      });
+      if (method === "GET") {
+        await serveStatic(ctx, PUBLIC_DIR);
+        return;
+      }
+
+      throw notFound("Такого эндпоинта нет.");
     } catch (cause) {
       if (cause instanceof ApiError) {
         sendApiError(res, cause);
