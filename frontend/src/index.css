@@ -14,11 +14,11 @@
   --popover-foreground: oklch(0.147 0.004 49.3);
   --primary: oklch(0.214 0.009 43.1);
   --primary-foreground: oklch(0.986 0.002 67.8);
-  --secondary: oklch(0.96 0.002 17.2);
+  --secondary: #d9d9d9;
   --secondary-foreground: oklch(0.214 0.009 43.1);
-  --muted: oklch(0.96 0.002 17.2);
+  --muted: #d9d9d9;
   --muted-foreground: oklch(0.547 0.021 43.1);
-  --accent: oklch(0.96 0.002 17.2);
+  --accent: #d9d9d9;
   --accent-foreground: oklch(0.214 0.009 43.1);
   --destructive: oklch(0.577 0.245 27.325);
   /* Обводка совпадает с цветом текста: в проекте нет ни теней, ни полутоновых рамок. */
@@ -35,7 +35,7 @@
   --sidebar-foreground: oklch(0.147 0.004 49.3);
   --sidebar-primary: oklch(0.214 0.009 43.1);
   --sidebar-primary-foreground: oklch(0.986 0.002 67.8);
-  --sidebar-accent: oklch(0.96 0.002 17.2);
+  --sidebar-accent: #d9d9d9;
   --sidebar-accent-foreground: oklch(0.214 0.009 43.1);
   --sidebar-border: oklch(0.922 0.005 34.3);
   --sidebar-ring: oklch(0.714 0.014 41.2);
@@ -96,9 +96,9 @@
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
+  --color-accent: var(--accent) !important;
   --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
+  --color-muted: var(--muted) !important;
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
