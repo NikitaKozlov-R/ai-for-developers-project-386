@@ -110,6 +110,13 @@ export function newId(): string {
   return randomUUID();
 }
 
+/** Только для e2e: возвращает стор к стартовым данным без рестарта процесса. */
+export function resetStore(): void {
+  eventTypes.clear();
+  bookings.clear();
+  seed();
+}
+
 // Хранилище живёт только в памяти процесса: рестарт возвращает эти данные.
 function seed(): void {
   const now = new Date();

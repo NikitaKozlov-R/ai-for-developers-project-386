@@ -1,4 +1,5 @@
 ### Hexlet tests and linter status:
+
 [![Actions Status](https://github.com/NikitaKozlov-R/ai-for-developers-project-386/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/NikitaKozlov-R/ai-for-developers-project-386/actions)
 
 # Simple Cal.com
@@ -57,3 +58,20 @@ VITE_API_PROXY_TARGET=http://localhost:4010
 ```
 
 Подробности — в [frontend/README.md](frontend/README.md).
+
+## Интеграционные тесты
+
+Playwright-тесты в [e2e/](e2e) проверяют frontend и backend вместе через реальный браузер:
+пользовательские пути по бронированию, предстоящим встречам и типам событий (по 4 теста на
+раздел). Backend не сбрасывается между тестами — каждый тест использует уникальные данные.
+
+```bash
+cd e2e
+npm install
+npx playwright install --with-deps chromium
+npm test
+```
+
+Тесты сами поднимают backend и frontend (`webServer` в `playwright.config.ts`) и гоняются в
+CI — см. [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml). Подробности — в
+[e2e/README.md](e2e/README.md).

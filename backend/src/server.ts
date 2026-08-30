@@ -3,10 +3,11 @@ import { createServer } from "node:http";
 import { PORT } from "./config.ts";
 import { createRequestListener } from "./router.ts";
 import { adminRoutes } from "./routes/admin.ts";
+import { internalRoutes } from "./routes/internal.ts";
 import { publicRoutes } from "./routes/public.ts";
 
 const server = createServer(
-  createRequestListener([...adminRoutes, ...publicRoutes]),
+  createRequestListener([...adminRoutes, ...publicRoutes, ...internalRoutes]),
 );
 
 server.listen(PORT, () => {
