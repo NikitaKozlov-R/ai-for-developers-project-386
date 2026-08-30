@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { CalendarClockIcon } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Link } from "@/lib/router";
 import { useRouter } from "@/lib/routing";
 import { cn } from "@/lib/utils";
@@ -42,12 +43,15 @@ export function Layout({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
-          <span
-            className="text-muted-foreground ms-auto text-xs"
-            title="Контракт хранит время только в UTC, часовой пояс не передаётся"
-          >
-            Все времена — UTC
-          </span>
+          <div className="ms-auto flex items-center gap-2">
+            <span
+              className="text-muted-foreground text-xs"
+              title="Контракт хранит время только в UTC, часовой пояс не передаётся"
+            >
+              Все времена — UTC
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
