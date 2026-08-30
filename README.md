@@ -71,6 +71,7 @@ npx husky install        # инициализация git hooks для пров�
 **Типы коммитов**: `feat`, `fix`, `spec` (TypeSpec), `docs`, `test`, `refactor`, `perf`, `ci`, `build`, `chore`.
 
 **Примеры**:
+
 ```bash
 git commit -m "feat(backend): add booking conflict validation"
 git commit -m "spec(models): add archived field to EventType"
